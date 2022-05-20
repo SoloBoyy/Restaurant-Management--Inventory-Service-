@@ -1,0 +1,34 @@
+            // get unit conversions for item
+            String getUnits = "SELECT * FROM units WHERE item = " + "501";
+            ResultSet units = stmt.executeQuery(getUnits);
+            units.next();
+
+            ArrayList<Float> decrements = new ArrayList<Float>();
+            
+            // add unit conversions to decreemnt list
+            for (String sku : SKUs) {
+              decrements.add(Float.parseFloat(units.getString(sku)));
+            }
+
+            // multiply decrement conversion by order count
+            for (int i = 0; i < decrements.size(); i++) {
+              decrements.set(i, decrements.get(i) * Integer.parseInt(count));
+            }
+
+            // for all SKUs with conversion
+            for (int i = 0; i < SKUs.size(); i++) {
+              // get row of sku
+              String getSupply = "SELECT * FROM supply WHERE sku = " + SKUs.get(i);
+              ResultSet supplyQ = stmt.executeQuery(getSupply);
+              supplyQ.next();
+
+              // get quanitity of sku
+              Float curr_amount = Float.parseFloat(supplyQ.getString("quantity"));
+
+              // get new quantity from table and order count
+              Float new_amount = curr_amount - decrements.get(i);
+
+              // update supply at sku 
+              String setSupply = "UPDATE supply SET quantity = " + new_amount.toString() + " WHERE sku = " + SKUs.get(i);
+              ResultSet setSupplyQ = stmt.executeQuery(setSupply);
+            }

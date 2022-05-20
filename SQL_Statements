@@ -1,0 +1,227 @@
+CREATE TABLE supply (
+    type text,
+    description text,
+    SKU text UNIQUE NOT NULL,
+    quantity double precision NOT NULL,
+    delivered INT,
+    sold_by text,
+    delivered_by text,
+    quantity_mult INT,
+    price double precision,
+    tot_price double precision,
+    category text,
+    invoice_line INT,
+    detail text,
+    date DATE
+);
+
+CREATE TABLE weeksales (
+    date DATE,
+    week INT,
+    day text,
+    item INT NOT NULL,
+    quantity INT,
+    total double precision
+);
+
+CREATE TABLE units (
+    Item text PRIMARY KEY,
+    c1001 double precision,
+    f3002 double precision,
+    d2004 double precision,
+    c1002 double precision,
+    d2007 double precision,
+    d2009 double precision,
+    d2013 double precision,
+    d2014 double precision,
+    d2015 double precision,
+    d2016 double precision,
+    d2017 double precision,
+    d2018 double precision,
+    d2019 double precision,
+    d2020 double precision,
+    d2021 double precision,
+    d2022 double precision,
+    d2024 double precision,
+    d2026 double precision,
+    d2027 double precision,
+    d2035 double precision,
+    d2001 double precision,
+    d2002 double precision,
+    d2003 double precision,
+    c1003 double precision,
+    d2005 double precision,
+    c1004 double precision,
+    d2006 double precision,
+    d2008 double precision,
+    d2010 double precision,
+    d2011 double precision,
+    c1005 double precision,
+    c1006 double precision,
+    d2012 double precision
+);
+
+CREATE TABLE orders (
+    item INT,
+    quantity INT,
+    total double precision,
+    date DATE
+);
+
+/* statement to insert or update */
+INSERT INTO menukey (item, name, description, price)
+VALUES(555,'test name', 'test description', 12.99) 
+ON CONFLICT (item) 
+DO 
+   UPDATE SET name = 'test name', description = 'test description', price = 12.99;
+
+CREATE TABLE menukey (
+    item INT UNIQUE,
+    name text,
+    description text,
+    price double precision
+);
+
+// Querey1*****************************************************************************************************
+System.out.println("Querey 1: What is item 501?\n");
+ResultSet querey1 = stmt.executeQuery("SELECT name FROM menukey WHERE item = 501");
+    while (querey1.next())
+    {
+        String test_name = querey1.getString("name");
+        System.out.println("Result of Querey1: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 2 ****************************************************************************************************
+    System.out.println("Querey 2: What are the name of items 501 - 506?\n");
+    ResultSet querey2 = stmt.executeQuery("SELECT name FROM menukey WHERE item <= 506");
+    while (querey2.next())
+    {
+    String test_name = querey2.getString("name");
+    System.out.println("Result of Querey2: " + test_name);
+    }
+System.out.println("\n\n");
+
+    // Querey 3 ******************************************************************************************************** 
+    System.out.println("Querey 3: What are the descriptions of items that are over $5?\n");
+    ResultSet querey3 = stmt.executeQuery("SELECT description FROM menukey WHERE price > 5.00");
+    while (querey3.next())
+    {
+    String test_name = querey3.getString("description");
+    System.out.println("Result of Querey3: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 4 ********************************************************************************************************
+    System.out.println("Querey 4: What item number is less than $5?\n");
+    ResultSet querey4 = stmt.executeQuery("SELECT item FROM menukey WHERE price < 5.00");
+    while (querey4.next())
+    {
+    String test_name = querey4.getString("item");
+    System.out.println("Result of Querey4: " + test_name);
+    }
+
+    System.out.println("\n\n");
+    
+    // Querey 5 **********************************************************************************************************
+    System.out.println("Querey 5: What is the price of the 5 finger original?\n");
+    ResultSet querey5 = stmt.executeQuery("SELECT price FROM menukey WHERE name = '5 finger original'");
+    while (querey5.next())
+    {
+    String test_name = querey5.getString("price");
+    System.out.println("Result of Querey5: " + test_name);
+    }
+    
+    System.out.println("\n\n");
+    
+    // Querey 6 **********************************************************************************************************
+    System.out.println("Querey 6: What items are delivered by the case?\n");
+    ResultSet querey6 = stmt.executeQuery("SELECT description FROM supply WHERE delivered_by = 'case'");
+    while (querey6.next()){
+        String test_name = querey6.getString("description");
+        System.out.println("Result of Querey6: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    
+    // Querey 7 **********************************************************************************************************
+    System.out.println("Querey 7: Which Items have less than 3 in storage?\n");
+    ResultSet querey7 = stmt.executeQuery("SELECT description FROM supply WHERE quantity < 3");
+    while (querey7.next()) {
+        String test_name = querey7.getString("description");
+        System.out.println("Result of Querey7: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 8 **********************************************************************************************************
+    System.out.println("Querey 8: What is the supply level of all Janitorial items?\n");
+    ResultSet querey8 = stmt.executeQuery("SELECT description, quantity FROM supply WHERE type = 'Janitorial'");
+    while (querey8.next()){
+        String test_name = querey8.getString("description");
+        String quantity = querey8.getString("quantity");
+        System.out.println("Result of Querey8: " + test_name + " : " + quantity);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 9 **********************************************************************************************************
+    System.out.println("Querey 9: What are the items that need to be stored cold?\n");
+    ResultSet querey9 = stmt.executeQuery("SELECT description FROM supply WHERE category = 'Cold'");
+    while (querey9.next()){
+        String test_name = querey9.getString("description");
+        System.out.println("Result of Querey9: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 10 *********************************************************************************************************
+    System.out.println("Querey 10: What are the SKU number for each food item?\n");
+    ResultSet querey10 = stmt.executeQuery("SELECT description, sku FROM supply WHERE type = 'Food'");
+    while (querey10.next()){
+        String test_name = querey10.getString("description");
+        String quantity = querey10.getString("sku");
+        System.out.println("Result of Querey10: " + test_name + " : " + quantity);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 11 *********************************************************************************************************
+    System.out.println("Querey 11: How many 5 finger originals were sold in the first week sunday?\n");
+    ResultSet querey11 = stmt.executeQuery("SELECT quantity FROM weeksales WHERE day = 'Sunday' AND week = 1 AND item = 501");
+    while (querey11.next()){
+        String test_name = querey11.getString("quantity");
+        System.out.println("Result of Querey11: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 12 *********************************************************************************************************
+    System.out.println("Querey 12: What items where sold on sunday week 1?\n");
+    ResultSet querey12 = stmt.executeQuery("SELECT item FROM weeksales WHERE day = 'Sunday' AND week = 1");
+    while (querey12.next()){
+        String test_name = querey12.getString("item");
+        System.out.println("Result of Querey12: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 13 *********************************************************************************************************
+    System.out.println("Querey 13: How much money did item 516 make on monday of week 1?\n");
+    ResultSet querey13 = stmt.executeQuery("SELECT total FROM weeksales WHERE day = 'Monday' AND week = 1 AND item = 516");
+    while (querey13.next()){
+        String test_name = querey13.getString("total");
+        System.out.println("Result of Querey13: $" + test_name);
+    }
+    System.out.println("\n\n");
+    // Querey 14 *********************************************************************************************************
+    System.out.println("Querey 14: How much items of 513 were sold on Sunday from week 1?\n");
+    ResultSet querey14 = stmt.executeQuery("SELECT quantity FROM weeksales WHERE day = 'Sunday' AND week = 1 AND item = 513");
+    while (querey14.next()){
+        String test_name = querey14.getString("quantity");
+        System.out.println("Result of Querey14: " + test_name);
+    }
+    System.out.println("\n\n");
+    
+    // Querey 15 *********************************************************************************************************
+    System.out.println("Querey 15: What items where sold on Tuesday week 1?\n");
+    ResultSet querey15 = stmt.executeQuery("SELECT item FROM weeksales WHERE day = 'Tuesday' AND week = 1");
+    while (querey15.next()){
+        String test_name = querey15.getString("item");
+        System.out.println("Result of Querey15: " + test_name);
+    }
+    System.out.println("\n\n");

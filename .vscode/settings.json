@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "opencsv-3.8.jar",
+        "jfreechart-1.5.3.jar"
+    ],
+    "cSpell.words": [
+        "csce",
+        "menukey",
+        "tablename"
+    ]
+}
