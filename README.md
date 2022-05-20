@@ -22,8 +22,4 @@ Rishabh Kumar - richiekumar@tamu.edu
   
 James Barret - jamesb59@tamu.edu
   
-Logan Bowen - bowen.logan@tamu.edu
-  
-Juan Chavez - juanchavez@tamu.edu
-  
   
