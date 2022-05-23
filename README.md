@@ -10,10 +10,10 @@ Each of the previously mentioned entities will have a unique ID and several rela
 
 * Java JDK
 * SQL and PostgreSQL
-* Access to Tamu network, either directly or through a VPN in order to access the database
 
 ## Postgres DB
-psql -h csce-315-db.engr.tamu.edu -U csce315X_Yuser csce315X_Ydb
+psql -h localhost -d postgres -U my_user
+*Contact for password*
 
 ## Compiling 
 1. javac -cp ".;opencsv-3.8.jar" *.java
