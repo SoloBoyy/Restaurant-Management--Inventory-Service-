@@ -3,6 +3,9 @@ Implemented using Java, Java Swing, SQL, and PostgreSQL. This codebase is a desk
 
 Each of the previously mentioned entities will have a unique ID and several relationships that will influence actions that need to be taken by the business. The orders will consist of particular items and when an order is placed those items will decrease the supply which will then allow the business to know what to order. We will also track when orders are placed and when the last time supplies were ordered. Customers will also be tracked along with their most recent orders and payment methods to facilitate payment and a quick and easy customer experience. 
 
+### Video Demo
+[![Video Demo](https://img.youtube.com/vi/OC3lOWjJfcc/0.jpg)](https://www.youtube.com/watch?v=OC3lOWjJfcc)
+
 ### Dependencies
 
 * Java JDK
